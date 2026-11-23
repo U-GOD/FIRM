@@ -4,7 +4,7 @@ FIRM is a settlement book for firm offers on QoreChain.
 
 A maker locks an input token and signs a price that decays on a straight line. Anyone may buy the inventory at the price the contract computes from that line. The proceeds go to the address named in the signature. A leaked classical key cannot cancel the offer, change the price, or send the proceeds somewhere else. The maker can cancel, and only with their post-quantum key, and that cancel waits out a delay they signed up front. A fill that lands during the delay still clears.
 
-The chain is the QoreChain Diana testnet. The category is Post-Quantum dApp. This repository is the build. The spec is [IMPLEMENTATION.md](IMPLEMENTATION.md). Contracts are not written yet.
+The chain is the QoreChain Diana testnet. The category is Post-Quantum dApp. This repository is the build. The spec is [IMPLEMENTATION.md](IMPLEMENTATION.md). The book contract is not written yet.
 
 ## The problem
 
@@ -52,9 +52,9 @@ A fill is accepted only when all of this is true:
 
 The contest demo uses a zero fee so the video is about the price and the refused cancel. The fee fields stay in the signature so a relayer cannot invent one later.
 
-Worked example, in whole tokens, assuming both tokens use 18 decimals. The real pair may not. We pin decimals from the token contracts before the recording, and we change this paragraph if they differ.
+Worked example, in whole tokens. fETH has 18 decimals and fUSD has 6. The price the maker signs is fUSD base units per 1e18 fETH base units, so 20 fUSD is the integer `20 * 10^6`, not `20 * 10^18`. The scale stays `1e18`.
 
-The maker locks 10 tokens and signs a two hour line from 20 down to 16, with a cancel delay of 40 blocks. Diana blocks are about 1.3 seconds, so 40 blocks is a bit under a minute. At the midpoint the contract charges 18 output tokens per input token, 180 in total. A filler who sends a price of 1 reverts. The maker's secp256k1 key, which we will publish, reverts on cancel and on withdraw. The maker's ML-DSA-87 key can start the cancel, and a fill before those 40 blocks still clears.
+The maker locks 10 fETH and signs a two hour line from 20 fUSD down to 16 fUSD, with a cancel delay of 40 blocks. Diana blocks are about 1.3 seconds, so 40 blocks is a bit under a minute. At the midpoint the contract charges 18 fUSD per fETH, 180 fUSD in total. A filler who sends a price of 1 reverts. The maker's secp256k1 key, which we will publish, reverts on cancel and on withdraw. The maker's ML-DSA-87 key can start the cancel, and a fill before those 40 blocks still clears.
 
 ## What the contract does
 
@@ -181,7 +181,7 @@ The honest first outsider is someone who runs the filler script against an offer
 | Piece | State |
 | --- | --- |
 | Protocol design | Written in IMPLEMENTATION.md |
-| Contracts | Not started |
+| Contracts | Offer bytes only. `OfferBook` is not written |
 | Diana deployment | Not done |
 | Outside filler | Not recruited |
 | Video | Not recorded |
@@ -205,7 +205,16 @@ Network facts we checked on 22 November 2026:
 | Signature | ML-DSA-87, FIPS 204. Public key 2,592 bytes. Signature 4,627 bytes. Empty context. The precompile does not hash the message |
 | Key check | Algorithm id 1, and `possessionProven` true. A registered key without a proof is not enough |
 
-The input and output token addresses are not pinned in this file. They will be the official Diana test tokens, read from the current QoreChain docs at the start of implementation, then written here with their decimals. Tests use 18 decimal mocks so the curve numbers stay readable.
+The pair is the official Diana fest tokens. On 23 November 2026, `symbol()` and `decimals()` on `https://evm-testnet.qore.host` matched the faucet documentation.
+
+| Token | Decimals | ERC-20 |
+| --- | --- | --- |
+| fETH | 18 | `0x02292293c13880a26242690eb70a0e42B8E91c28` |
+| fUSD | 6 | `0x97143B771D34ddb9130b807b135Ae675A5a963CA` |
+
+fBTC (`0x4604e7E45b2ecdbfbDc157103f5B2b62cb16451A`, 8 decimals) is on Diana and is not used. These tokens are not on mainnet. Tests still use 18 decimal mocks so the curve numbers stay readable. The signed demo prices use fUSD's 6 decimals, as in the worked example above.
+
+Source: [QoreChain faucet](https://docs.qorechain.io/dashboard/faucet/).
 
 ## License
 
