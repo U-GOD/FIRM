@@ -42,15 +42,18 @@ library OfferBytes {
     }
 
     function encodeOffer(Offer memory offer, address book, uint256 chainId) internal pure returns (bytes memory) {
+        // Two encodes, then concatenated. One encode of all sixteen words
+        // blows Solidity's stack in the tests. Every field is one word, so
+        // the bytes are the same as a single abi.encode.
+        return bytes.concat(_offerHead(offer, book, chainId), _offerTail(offer));
+    }
+
+    function _offerHead(Offer memory offer, address book, uint256 chainId) private pure returns (bytes memory) {
+        return abi.encode(OFFER_DOMAIN, chainId, book, offer.maker, offer.tokenIn, offer.tokenOut, offer.amountIn, offer.startPrice);
+    }
+
+    function _offerTail(Offer memory offer) private pure returns (bytes memory) {
         return abi.encode(
-            OFFER_DOMAIN,
-            chainId,
-            book,
-            offer.maker,
-            offer.tokenIn,
-            offer.tokenOut,
-            offer.amountIn,
-            offer.startPrice,
             offer.endPrice,
             offer.startTime,
             offer.endTime,
