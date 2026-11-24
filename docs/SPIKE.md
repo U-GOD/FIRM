@@ -18,10 +18,21 @@ Checked on 23 November 2026 against Diana, chain id 9800.
 
 The vector is `test/vectors/offer.json`. The book address in it is the placeholder `0x…f19d`. The key comes from the public label `FIRM_VECTOR_SEED_V1`. It is not a maker key.
 
-The offer message is 512 bytes. That is `abi.encode` of the sixteen words in `OfferBytes.sol`. This run checked the TypeScript encoder. Forge is not installed in WSL, so the Solidity function has not been executed yet.
+The offer message is 512 bytes. That is `abi.encode` of the sixteen words in `OfferBytes.sol`. This run checked the TypeScript encoder. `test/OfferBytes.t.sol` later matched the same bytes.
 
 ## Deposit
 
-Not run. No maker mnemonic was in the environment, and none was created for this spike. There is no transaction hash and no chosen deposit path. `MsgCrossVMCall` was not sent. The three-transaction window was not opened.
+Not run. There is no transaction hash and no chosen deposit path.
 
-Step 1 in `IMPLEMENTATION.md` is done for the signature and not done for the deposit. The deposit waits on a key that stays out of git.
+On 24 November 2026 the testnet still had `MsgCrossVMCall` enabled: `GET /cosmos/circuit/v1/disable_list` listed only `/cosmwasm.wasm.v1.MsgStoreCode`, and `GET /qorechain/crossvm/v1/params` returned `"enabled": true`. The call was not sent.
+
+A fresh maker account was created for this spike. The phrase is in `.env`, which git ignores. It is not the public vector key.
+
+| Form | Address |
+| --- | --- |
+| `qor1` | `qor1qxurkhjlhzr8lemm2z2pqqf4mr77gpgmrvxsyp` |
+| `0x` | `0x01B83B5E5Fb8867fE77B5094100135D8Fde4051b` |
+
+The account has no QOR. The faucet at https://dashboard.qorechain.io/faucet requires a sign-in, and no claim was made. The three-transaction window was not opened.
+
+Step 1 in `IMPLEMENTATION.md` is done for the signature and not done for the deposit.
