@@ -120,7 +120,7 @@ The contest build is one book, one pair, and a recorded attack.
 We will ship:
 
 - Deposit, open, full fill, delayed cancel, withdraw.
-- ML-DSA-87 checked with the Diana precompiles, and a mock plus a live probe so the tests mean something.
+- ML-DSA-87 checked with the Diana precompiles. Forge etches a mock and does not prove FIPS 204. `npm run spike` is the real signature check.
 - A linear curve, a cancel delay, and a fee field that the demo sets to zero.
 - An attacker script that uses the maker's secp256k1 key and shows the reverts.
 - A filler script on a second key we control. That key is operator inventory. It is not a user.
@@ -181,7 +181,7 @@ The honest first outsider is someone who runs the filler script against an offer
 | Piece | State |
 | --- | --- |
 | Protocol design | Written in IMPLEMENTATION.md |
-| Contracts | Offer bytes only. `OfferBook` is not written |
+| Contracts | `OfferBook` and the curve. Forge tests pass. Not deployed |
 | Diana deployment | Not done |
 | Outside filler | Not recruited |
 | Video | Not recorded |
@@ -190,7 +190,7 @@ Code for this project has to be written during the fest. The window opened on 4 
 
 ## Build notes
 
-Foundry is the contract toolchain. Scripts and the page are TypeScript. Day to day work can happen on Windows, with Forge under WSL2. The WSL path for this folder is `/mnt/c/Users/HP/Documents/FIRM`.
+Foundry is the contract toolchain. Scripts and the page are TypeScript. Day to day work can happen on Windows, with Forge under WSL2. The WSL path for this folder is `/mnt/c/Users/HP/Documents/FIRM`. The book uses OpenZeppelin `ReentrancyGuard` and `SafeERC20`. Tests use forge-std.
 
 Network facts we checked on 22 November 2026:
 
