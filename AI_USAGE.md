@@ -29,3 +29,17 @@ Kept: the named tests, the mock rule `keccak256(abi.encode(pubkey, keccak256(mes
 Rejected: calling the mock ML-DSA, and starting the hybrid deposit without a key.
 
 Check: `forge test` on WSL, Forge 1.9.0. 32 tests passed, including the fuzz and `invariant_balance_matches_idle_plus_reserved`.
+
+## 24 November 2026, deposit
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Start the deposit half of step 1. Confirm `MsgCrossVMCall` is still enabled, and stop before a broadcast if the maker has no QOR.
+
+Files: `package.json`, `package-lock.json`, `.env.example`, `script/live/deposit.ts`, `script/live/spike.ts`, `docs/SPIKE.md`. The maker phrase was written to `.env` and was not committed.
+
+Kept: `@qorechain/sdk` 0.14.0, a unified eth-native account (`deriveUnifiedAccount`), and a balance check that does not broadcast at zero QOR. The circuit list and the cross-VM `enabled` flag were read from Diana before any signing.
+
+Rejected: inventing a transaction hash, guessing a faucet URL, and sending `MsgCrossVMCall` from an empty account. Also rejected treating the Canto `MsgConvertCoin` layout as QoreChain's. SDK 0.14.0 has no convert helper, and the fest tokens were not claimed.
+
+Check: `npm run spike`. The signature checks still passed. The deposit line was `not run, maker has no QOR`, with `window found=false live=false`.
