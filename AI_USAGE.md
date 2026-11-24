@@ -43,3 +43,17 @@ Kept: `@qorechain/sdk` 0.14.0, a unified eth-native account (`deriveUnifiedAccou
 Rejected: inventing a transaction hash, guessing a faucet URL, and sending `MsgCrossVMCall` from an empty account. Also rejected treating the Canto `MsgConvertCoin` layout as QoreChain's. SDK 0.14.0 has no convert helper, and the fest tokens were not claimed.
 
 Check: `npm run spike`. The signature checks still passed. The deposit line was `not run, maker has no QOR`, with `window found=false live=false`.
+
+## 24 November 2026, deposit broadcast
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Use the faucet hash the user supplied, register the maker, and send the 1-base-unit hybrid deposit.
+
+Files: `contracts/SpikeVault.sol`, `script/live/deposit.ts`, `docs/SPIKE.md`, `README.md`. `.env` stayed uncommitted.
+
+Kept: `MsgRegisterPQCKeyV2` with a proof of possession, `MsgConvertCoin` of 1 fETH base unit, a short unscoped window only for the `SpikeVault` deploy, then `MsgCloseEVMWindow` before the deposit. The deposit, the approve, and the allowance clear are `crossvm.crossVmCall` with `sourceVm` `cosmwasm` and `targetVm` `evm`. The deposit hash is `53A558AF0FBBA66E66E8C0E7F2DF7131D1CC7D6EFFF7B565598F02B473553743`. `pqc_hybrid_verify` was `verified`. The window read after the close was `found: false`.
+
+Rejected: broadcasting the first cross-VM shape. Simulation returned `source and target VM must differ` when both fields were `evm`, so that shape was not sent. Also rejected the three-transaction window fallback, because the hybrid call landed.
+
+Check: the hashes in `docs/SPIKE.md` were read back from Diana, and the vault deploy receipt was `0x1`. `npm run spike` passed. The deposit line was hash `53A558AF0FBBA66E66E8C0E7F2DF7131D1CC7D6EFFF7B565598F02B473553743`, `pqc_hybrid_verify verified`, and `window found=false live=false`.
