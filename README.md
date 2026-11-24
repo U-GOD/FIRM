@@ -182,6 +182,7 @@ The honest first outsider is someone who runs the filler script against an offer
 | --- | --- |
 | Protocol design | Written in IMPLEMENTATION.md |
 | Contracts | `OfferBook` and the curve. Forge tests pass. Not deployed |
+| Deposit spike | Hybrid `MsgCrossVMCall` of 1 fETH base unit. Hashes are in docs/SPIKE.md |
 | Diana deployment | Not done |
 | Outside filler | Not recruited |
 | Video | Not recorded |
