@@ -13,6 +13,7 @@ import {
   type Hex,
 } from "viem";
 import { diana } from "./chain.js";
+import { reportDeposit } from "./deposit.js";
 import {
   CHAIN_ID,
   DIANA_RPC,
@@ -212,7 +213,7 @@ async function main(): Promise<void> {
   console.log("noble: offer, cancel, and withdraw verify");
   console.log("diana: good signature true, flipped bit false");
   console.log("tokens: fETH 18 decimals, fUSD 6 decimals");
-  console.log("deposit: not run, no maker key in the environment");
+  console.log(await reportDeposit());
 }
 
 main().catch((error: unknown) => {
