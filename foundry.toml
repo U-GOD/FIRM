@@ -5,6 +5,8 @@ libs = ["lib"]
 solc = "0.8.28"
 optimizer = true
 optimizer_runs = 200
+via_ir = true
+fs_permissions = [{ access = "read", path = "./test/vectors" }]
 
 # Diana testnet. EVM chain id 9800. Scripts check the chain id themselves.
 [profile.diana]
@@ -14,6 +16,7 @@ libs = ["lib"]
 solc = "0.8.28"
 optimizer = true
 optimizer_runs = 200
+via_ir = true
 eth_rpc_url = "https://evm-testnet.qore.host"
 
 [rpc_endpoints]
