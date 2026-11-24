@@ -351,10 +351,10 @@ Status is `CancelPending` and `block.number >= cancelReadyAt`. Set status to `Ca
 ### withdraw
 
 ```solidity
-function withdraw(address token, uint256 amount, bytes calldata signature) external nonReentrant
+function withdraw(address maker, address token, uint256 amount, bytes calldata signature) external nonReentrant
 ```
 
-The signed maker is recovered from the message, not from `msg.sender`. Rebuild the withdraw bytes, verify, increment the action nonce, reduce `idle[maker][token]` by `amount`, transfer `token` to `maker`. Emit `Withdrawn`.
+`maker` is an argument because the contract has to rebuild the signed bytes, and ML-DSA does not recover an address the way `ecrecover` does. The book checks the signature against that argument and ignores `msg.sender`. A wrong maker fails the check. Rebuild the withdraw bytes, verify, increment the action nonce, reduce `idle[maker][token]` by `amount`, transfer `token` to `maker`. Emit `Withdrawn`.
 
 The tokens go to the maker address inside the signature. A relayer cannot redirect them.
 
