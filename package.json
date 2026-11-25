@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "spike": "tsx script/live/spike.ts",
-    "vector": "tsx script/live/spike.ts --write"
+    "vector": "tsx script/live/spike.ts --write",
+    "offer-a": "tsx script/live/offer-a.ts"
   },
   "dependencies": {
     "@noble/post-quantum": "^0.5.1",
