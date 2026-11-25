@@ -57,3 +57,17 @@ Kept: `MsgRegisterPQCKeyV2` with a proof of possession, `MsgConvertCoin` of 1 fE
 Rejected: broadcasting the first cross-VM shape. Simulation returned `source and target VM must differ` when both fields were `evm`, so that shape was not sent. Also rejected the three-transaction window fallback, because the hybrid call landed.
 
 Check: the hashes in `docs/SPIKE.md` were read back from Diana, and the vault deploy receipt was `0x1`. `npm run spike` passed. The deposit line was hash `53A558AF0FBBA66E66E8C0E7F2DF7131D1CC7D6EFFF7B565598F02B473553743`, `pqc_hybrid_verify verified`, and `window found=false live=false`.
+
+## 25 November 2026
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Deploy `OfferBook` on Diana from a fresh deployer, then close its window.
+
+Files: `script/live/deploy.ts`, `.env.example`, `README.md`. The deployer phrase and `BOOK_ADDRESS` were written to `.env` and were not committed.
+
+Kept: a separate deployer, funded with 15 QOR and no fest tokens. `MsgRegisterPQCKeyV2` with a proof of possession. An unscoped window of 120 blocks and one transaction, then `MsgCloseEVMWindow` even after that one transaction had already exhausted the window. Constructor arguments are fETH and fUSD. The book is `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`. A status read returned those tokens and `nextId` 1. The window read was `found: false`.
+
+Rejected: deploying from the maker. The maker holds inventory. Also rejected leaving the exhausted window stored. `live: false` is not the same as closed.
+
+Check: the five hashes were read back from Diana. The deploy receipt status was `0x1`. The deployer balance is only `uqor`. `possession_proven` is true and `algorithm_id` is 1.
