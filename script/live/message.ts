@@ -165,3 +165,13 @@ export function vectorCancel(): CancelTerms {
 export function vectorWithdraw(): WithdrawTerms {
   return { maker: VECTOR_MAKER, token: FETH, amount: 1n, actionNonce: 0n };
 }
+
+/**
+ * Live offer A. The faucet paid 0.5 fETH, so this is 0.1 fETH.
+ * Prices stay 20 fUSD and 16 fUSD per whole fETH. The public vector above is a different key and is not this offer.
+ */
+export const OFFER_A_AMOUNT = 10n ** 17n;
+export const OFFER_A_START_PRICE = 20n * 10n ** 6n;
+export const OFFER_A_END_PRICE = 16n * 10n ** 6n;
+export const OFFER_A_DURATION = 7_200n;
+export const OFFER_A_DELAY = 40n;
