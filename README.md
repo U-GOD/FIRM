@@ -4,7 +4,7 @@ FIRM is a settlement book for firm offers on QoreChain.
 
 A maker locks an input token and signs a price that decays on a straight line. Anyone may buy the inventory at the price the contract computes from that line. The proceeds go to the address named in the signature. A leaked classical key cannot cancel the offer, change the price, or send the proceeds somewhere else. The maker can cancel, and only with their post-quantum key, and that cancel waits out a delay they signed up front. A fill that lands during the delay still clears.
 
-The chain is the QoreChain Diana testnet. The category is Post-Quantum dApp. This repository is the build. The spec is [IMPLEMENTATION.md](IMPLEMENTATION.md). The book contract is not written yet.
+The chain is the QoreChain Diana testnet. The category is Post-Quantum dApp. This repository is the build. The spec is [IMPLEMENTATION.md](IMPLEMENTATION.md). The book is deployed at `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`.
 
 ## The problem
 
@@ -181,11 +181,21 @@ The honest first outsider is someone who runs the filler script against an offer
 | Piece | State |
 | --- | --- |
 | Protocol design | Written in IMPLEMENTATION.md |
-| Contracts | `OfferBook` and the curve. Forge tests pass. Not deployed |
+| Contracts | `OfferBook` and the curve. Forge tests pass |
 | Deposit spike | Hybrid `MsgCrossVMCall` of 1 fETH base unit. Hashes are in docs/SPIKE.md |
-| Diana deployment | Not done |
+| Diana deployment | `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`. `tokenA` is fETH, `tokenB` is fUSD, `nextId` is 1. The deployer window is closed |
 | Outside filler | Not recruited |
 | Video | Not recorded |
+
+Deployed on 25 November 2026. The deployer is `qor1y54dky94wj7sfj80pjmp4vkg7gjv35luf24fxs`. It holds QOR for gas and no fest tokens. Its ML-DSA key is algorithm 1 with `possession_proven` true.
+
+| Step | Hash |
+| --- | --- |
+| Gas to the deployer | `4CFD5D24BE7684FD72EAE944F9E853304173E12CF42CC92C81EC9B5FC02266AC` |
+| Register | `DC3317F0103D9775965B50DBCB173C1DD303E9A862A9B80D2EC62282689CDED4` |
+| Open the window | `DD29A39A1D8943174929BA23A530E82A269CCEAA99992A01B6E18BE6FB4CC486` |
+| Deploy | `0x6ad3f0a3f7d27b21076111f465a958b12dc752e96087da915d9e3200b939ccde` |
+| Close the window | `E6648955F88F78B922E75B07AF15BC02704B964481D181EED6C26AA431006998` |
 
 Code for this project has to be written during the fest. The window opened on 4 November 2026. The deadline is 2 December 2026 at 23:59 UTC.
 
