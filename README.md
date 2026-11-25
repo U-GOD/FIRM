@@ -54,7 +54,7 @@ The contest demo uses a zero fee so the video is about the price and the refused
 
 Worked example, in whole tokens. fETH has 18 decimals and fUSD has 6. The price the maker signs is fUSD base units per 1e18 fETH base units, so 20 fUSD is the integer `20 * 10^6`, not `20 * 10^18`. The scale stays `1e18`.
 
-The maker locks 10 fETH and signs a two hour line from 20 fUSD down to 16 fUSD, with a cancel delay of 40 blocks. Diana blocks are about 1.3 seconds, so 40 blocks is a bit under a minute. At the midpoint the contract charges 18 fUSD per fETH, 180 fUSD in total. A filler who sends a price of 1 reverts. The maker's secp256k1 key, which we will publish, reverts on cancel and on withdraw. The maker's ML-DSA-87 key can start the cancel, and a fill before those 40 blocks still clears.
+The faucet paid 0.5 fETH, so offer A locks 0.1 fETH. The line is still two hours from 20 fUSD down to 16 fUSD, with a cancel delay of 40 blocks. Diana blocks are about 1.3 seconds, so 40 blocks is a bit under a minute. At the midpoint the contract charges 18 fUSD per fETH, 1.8 fUSD for this size. A filler who sends a price of 1 reverts. The maker's secp256k1 key, which we will publish, reverts on cancel and on withdraw. The maker's ML-DSA-87 key can start the cancel, and a fill before those 40 blocks still clears. The recorded transactions are in [docs/RUN.md](docs/RUN.md).
 
 ## What the contract does
 
@@ -183,7 +183,8 @@ The honest first outsider is someone who runs the filler script against an offer
 | Protocol design | Written in IMPLEMENTATION.md |
 | Contracts | `OfferBook` and the curve. Forge tests pass |
 | Deposit spike | Hybrid `MsgCrossVMCall` of 1 fETH base unit. Hashes are in docs/SPIKE.md |
-| Diana deployment | `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`. `tokenA` is fETH, `tokenB` is fUSD, `nextId` is 1. The deployer window is closed |
+| Diana deployment | `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`. `tokenA` is fETH, `tokenB` is fUSD. The deployer window is closed |
+| Offer A | Filled during the cancel delay. Hashes are in [docs/RUN.md](docs/RUN.md) |
 | Outside filler | Not recruited |
 | Video | Not recorded |
 
