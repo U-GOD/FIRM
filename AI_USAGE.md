@@ -71,3 +71,18 @@ Kept: a separate deployer, funded with 15 QOR and no fest tokens. `MsgRegisterPQ
 Rejected: deploying from the maker. The maker holds inventory. Also rejected leaving the exhausted window stored. `live: false` is not the same as closed.
 
 Check: the five hashes were read back from Diana. The deploy receipt status was `0x1`. The deployer balance is only `uqor`. `possession_proven` is true and `algorithm_id` is 1.
+
+## 25 November 2026, offer A
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Deposit 0.1 fETH, open offer A, broadcast the three attacker calls, and fill while the cancel delay was still running.
+
+Files: `script/live/message.ts`, `script/live/book.ts`, `script/live/open.ts`, `script/live/attacker.ts`, `script/live/fill.ts`, `script/live/offer-a.ts`, `package.json`, `.env.example`, `README.md`, `docs/RUN.md`. The filler phrase was written to `.env` and was not committed.
+
+Kept: 0.1 fETH, because the maker's faucet balance was 0.5 fETH. Prices stay `20 * 10^6` and `16 * 10^6`. Maker and filler actions are hybrid `MsgCrossVMCall` with `sourceVm` `cosmwasm`. The attacker script derives only the secp256k1 key. Cancel and withdraw send a 4,627-byte blob. The price call is `fill(uint256,uint256)`. The window's `maxValue` is one shared fee budget, so the withdraw used a second window after the first budget hit 0 uqor. `MsgSend` coins are sorted by denom. The fill landed in block 10698057. `cancelReadyAt` is 10698093. The curve price is `19918889` and the payment is `1991888`. The filler received `10^17` fETH. The maker received `1991888` fUSD.
+
+Rejected: locking 10 fETH. Treating `maxValue` as a per-transaction cap. Sending `uqor` ahead of the `erc20:` denom. Leaving the maker window open after the attack.
+
+Check: every hash in `docs/RUN.md` was read back from Diana. The three attacker receipts have status `0x0`. The maker window read was `found: false` and `live: false`. The filler key is algorithm 1 with `possession_proven` true.
+
