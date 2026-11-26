@@ -6,7 +6,8 @@
     "spike": "tsx script/live/spike.ts",
     "vector": "tsx script/live/spike.ts --write",
     "offer-a": "tsx script/live/offer-a.ts",
-    "offer-b": "tsx script/live/cancel.ts"
+    "offer-b": "tsx script/live/cancel.ts",
+    "page": "vite --config web/vite.config.ts"
   },
   "dependencies": {
     "@noble/post-quantum": "^0.5.1",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^24.10.1",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8"
   }
 }
