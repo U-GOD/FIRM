@@ -86,3 +86,18 @@ Rejected: locking 10 fETH. Treating `maxValue` as a per-transaction cap. Sending
 
 Check: every hash in `docs/RUN.md` was read back from Diana. The three attacker receipts have status `0x0`. The maker window read was `found: false` and `live: false`. The filler key is algorithm 1 with `possession_proven` true.
 
+## 26 November 2026, offer B
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Open the smaller offer, wait out the 40-block cancel delay, show the fill revert, and return the input to idle.
+
+Files: `script/live/message.ts`, `script/live/book.ts`, `script/live/cancel.ts`, `package.json`, `IMPLEMENTATION.md`, `docs/RUN.md`, `README.md`.
+
+Kept: 0.01 fETH, the same 10:1 ratio as the spec after the faucet scale. The same price line and a 40-block delay. The filler's matured `fill` is an EVM receipt with status `0x0`, because a simulated hybrid call would not be broadcast. The window was closed after that one transaction. `finalizeCancel` ran after the revert. Idle fETH is `10000000000000001` and reserved fETH is 0. Offer 2 status is cancelled. `cancelReadyAt` is block 10758165. The fill is in block 10758171.
+
+Rejected: filling offer B during the delay. That would consume the inventory this step has to return. Offer A already showed that fill.
+
+Check: every offer B hash in `docs/RUN.md` was read back from Diana. The fill receipt status was `0x0`. The filler window read was `found: false` and `live: false`.
+
+
