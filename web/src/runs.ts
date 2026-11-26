@@ -2,6 +2,9 @@
 export const BOOK = "0x9faf23f3014c0922ca7d70da87b6783a3d2b5619" as const;
 export const EXPLORER = "https://explore.qore.network/tx/";
 
+export const SPEC = "https://github.com/U-GOD/FIRM";
+export const RUN_LOG = "https://github.com/U-GOD/FIRM/blob/main/docs/RUN.md";
+
 export const RECORDED = {
   offerA: {
     id: 1n,
@@ -11,6 +14,9 @@ export const RECORDED = {
     fillBlock: 10698057n,
     unitPrice: 19918889n,
     gross: 1991888n,
+    recordedOn: "25 November 2026",
+    runTitle: "Offer A",
+    fillStep: "Fill",
   },
   offerB: {
     id: 2n,
@@ -18,8 +24,21 @@ export const RECORDED = {
     status: 4,
     cancelReadyAt: 10758165n,
     fillBlock: 10758171n,
+    recordedOn: "26 November 2026",
+    runTitle: "Offer B",
+    fillStep: "Matured fill",
   },
 } as const;
+
+export function recordedFor(id: bigint) {
+  if (id === RECORDED.offerA.id) return RECORDED.offerA;
+  if (id === RECORDED.offerB.id) return RECORDED.offerB;
+  return null;
+}
+
+export function runHash(title: string, step: string): string | undefined {
+  return RUNS.find((run) => run.title === title)?.rows.find((row) => row.step === step)?.hash;
+}
 
 export const RUNS: { title: string; rows: { step: string; hash: string }[] }[] = [
   {
