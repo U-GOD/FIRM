@@ -100,4 +100,18 @@ Rejected: filling offer B during the delay. That would consume the inventory thi
 
 Check: every offer B hash in `docs/RUN.md` was read back from Diana. The fill receipt status was `0x0`. The filler window read was `found: false` and `live: false`.
 
+## 26 November 2026, page
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Serve a read-only page that shows the filled offer without a wallet.
+
+Files: `web/index.html`, `web/src/main.ts`, `web/src/runs.ts`, `web/src/style.css`, `web/vite.config.ts`, `web/tsconfig.json`, `package.json`, `package-lock.json`, `README.md`.
+
+Kept: viem reads of offers 1 and 2 from `https://evm-testnet.qore.host`. The line runs from 20 fUSD to 16 fUSD. Offer 1 is Filled, `cancelReadyAt` 10698093, with the fill marked at 19.918889 fUSD. Offer 2 is Cancelled, `cancelReadyAt` 10758165. The hashes in `docs/RUN.md` link to `https://explore.qore.network/tx/`. No wallet and no key. Vite serves the page on port 5174 because 5173 was already in use.
+
+Rejected: a wallet connection, and importing the live scripts, which read mnemonics. Also rejected inventing a query parameter to force the explorer onto testnet. Its network switch is the `qore-network` cookie, and the default is mainnet.
+
+Check: a browser that was not logged in opened `http://localhost:5174/`. The page read next id 3 and showed offer 1 as Filled, matching `docs/RUN.md`. The fill link opened the explorer. On mainnet the hash was not found. After the header was set to Testnet, the same page showed that fill as success in block 10698057.
+
 
