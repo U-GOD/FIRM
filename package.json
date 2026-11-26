@@ -5,7 +5,8 @@
   "scripts": {
     "spike": "tsx script/live/spike.ts",
     "vector": "tsx script/live/spike.ts --write",
-    "offer-a": "tsx script/live/offer-a.ts"
+    "offer-a": "tsx script/live/offer-a.ts",
+    "offer-b": "tsx script/live/cancel.ts"
   },
   "dependencies": {
     "@noble/post-quantum": "^0.5.1",
