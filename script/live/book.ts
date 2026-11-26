@@ -123,6 +123,13 @@ export const bookAbi = [
   },
   {
     type: "function",
+    name: "finalizeCancel",
+    stateMutability: "nonpayable",
+    inputs: [{ name: "id", type: "uint256" }],
+    outputs: [],
+  },
+  {
+    type: "function",
     name: "startCancel",
     stateMutability: "nonpayable",
     inputs: [
