@@ -186,6 +186,7 @@ The honest first outsider is someone who runs the filler script against an offer
 | Diana deployment | `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`. `tokenA` is fETH, `tokenB` is fUSD. The deployer window is closed |
 | Offer A | Filled during the cancel delay. Hashes are in [docs/RUN.md](docs/RUN.md) |
 | Offer B | Cancel matured, fill reverted, input returned to idle. Hashes are in [docs/RUN.md](docs/RUN.md) |
+| Page | Read-only. `npm run page` serves `web/`. It reads the book and links the hashes in [docs/RUN.md](docs/RUN.md). The explorer opens on mainnet until its header is set to Testnet |
 | Outside filler | Not recruited |
 | Video | Not recorded |
 
