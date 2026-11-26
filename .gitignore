@@ -8,3 +8,5 @@ dist/
 !.env.example
 *.log
 .DS_Store
+docs/frontend-design-plan.md
+docs/ui-research.md
