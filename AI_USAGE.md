@@ -114,4 +114,46 @@ Rejected: a wallet connection, and importing the live scripts, which read mnemon
 
 Check: a browser that was not logged in opened `http://localhost:5174/`. The page read next id 3 and showed offer 1 as Filled, matching `docs/RUN.md`. The fill link opened the explorer. On mainnet the hash was not found. After the header was set to Testnet, the same page showed that fill as success in block 10698057.
 
+## 26 November 2026, book page
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Rebuild the read-only page as a book, a term sheet, and the run log.
+
+Files: `.gitignore`, `web/index.html`, `web/tsconfig.json`, `web/src/tokens.css`, `web/src/style.css`, `web/src/main.ts`, `web/src/chain.ts`, `web/src/format.ts`, `web/src/curve.ts`, `web/src/copy.ts`, `web/src/book.ts`, `web/src/sheet.ts`, `web/src/record.ts`, `web/src/runs.ts`, `AI_USAGE.md`. The design notes were left untracked.
+
+Kept: hash routes for the book, one offer, and the record. Live reads of `tokenA`, `tokenB`, `nextId`, and `offers`. fETH and fUSD labels only when the address matches the pinned tokens. The price line, with the offer A fill mark when the chain still matches the run log. The explorer warning. No wallet.
+
+Rejected: a connect button, a fill button, and treating the run-log payment as a value stored on the offer.
+
+Check: `npx tsc -p web/tsconfig.json --noEmit`. A browser that was not logged in opened `http://localhost:5174/#/book`. Offer 1 was Filled at `cancelReadyAt` 10698093. Offer 2 was Cancelled. `#/offer/1` showed the recorded fill. `#/offer/9` said that offer is not on the book. `#/record` listed the hashes. At 390px the page did not scroll sideways.
+
+## 26 November 2026, black and bone
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Replace the beige page with one ground and one ink.
+
+Files: `web/src/tokens.css`, `web/src/style.css`, `web/src/curve.ts`, `AI_USAGE.md`.
+
+Kept: ground `#10100e` and ink `#f3f0e8`. The button is the same pair reversed. Status stays the word. The price line is ink. No hue and no motion.
+
+Rejected: a gradient, a status palette, and a second layout.
+
+Check: `npx tsc -p web/tsconfig.json --noEmit`. A browser opened `http://localhost:5174/#/book`, `#/offer/1`, and `#/record`. Offer 1 was Filled and offer 2 was Cancelled. The three price labels on the line did not overlap. At 390px the page width was 390.
+
+## 26 November 2026, landing
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Add a landing page and motion with GSAP and Lenis.
+
+Files: `package.json`, `package-lock.json`, `web/index.html`, `web/src/main.ts`, `web/src/landing.ts`, `web/src/motion.ts`, `web/src/tokens.css`, `web/src/style.css`, `AI_USAGE.md`.
+
+Kept: [GSAP](https://github.com/greensock/GSAP) 3.15 for SplitText, DrawSVG, and ScrollTrigger. [Lenis](https://github.com/darkroomengineering/lenis) 1.3 for scroll. The home route reads offer 1 and draws its line. Brass `#e0a24a` on the black ground. `prefers-reduced-motion` skips the tweens.
+
+Rejected: a React kit, a gradient, and a wallet control.
+
+Check: `npx tsc -p web/tsconfig.json --noEmit`. A browser opened `http://localhost:5174/#/`. The headline, the brass line, and offer 1 were on the first screen. Open the book went to `#/book` and showed the same headline. At 390px the page width was 390.
+
 
