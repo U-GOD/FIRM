@@ -4,20 +4,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FIRM — read-only book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/tokens.css" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <main>
-      <header>
-        <p class="eyebrow">Diana testnet · chain 9800 · no wallet</p>
-        <h1>FIRM</h1>
-        <p class="lede">
-          A public Dutch line. The page only reads the book. It cannot sign, cancel, or fill.
-        </p>
-        <p id="meta" class="meta">Reading the book…</p>
-      </header>
-      <section id="offers" aria-live="polite"></section>
-      <section id="runs"></section>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="bar">
+      <a class="wordmark" href="#/">FIRM</a>
+      <nav aria-label="Pages">
+        <a href="#/" data-nav="landing">Home</a>
+        <a href="#/book" data-nav="book">Book</a>
+        <a href="#/record" data-nav="record">Record</a>
+        <a href="https://github.com/U-GOD/FIRM" rel="noreferrer" target="_blank">Spec</a>
+      </nav>
+      <p class="chain">Diana · 9800 · read only</p>
+    </header>
+    <main id="content">
+      <p id="notice" class="note" aria-live="polite"></p>
+      <div id="outlet"></div>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
