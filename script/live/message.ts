@@ -175,3 +175,6 @@ export const OFFER_A_START_PRICE = 20n * 10n ** 6n;
 export const OFFER_A_END_PRICE = 16n * 10n ** 6n;
 export const OFFER_A_DURATION = 7_200n;
 export const OFFER_A_DELAY = 40n;
+
+/** One tenth of offer A. Same 10:1 ratio as the spec, after the faucet scale. */
+export const OFFER_B_AMOUNT = 10n ** 16n;
