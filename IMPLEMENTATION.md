@@ -446,7 +446,7 @@ All of them read `DIANA_RPC`, the mnemonics, and the book address from the envir
 
 `fill.ts`. Filler approves and fills. Print price, filler input balance, recipient output balance.
 
-`cancel.ts`. Used on the second offer. Start cancel, attempt fill and show success, warp is not available on a public chain so the script waits for `cancelDelay` blocks, then shows fill reverting and `finalizeCancel` returning inventory.
+`cancel.ts`. Used on the second offer. Start cancel, then wait for `cancelDelay` blocks, because a public chain has no warp. Show `fill` reverting once the delay has matured, then `finalizeCancel` returning the input to idle. Offer A already showed a fill during the delay. A successful fill here would consume the inventory this step has to return.
 
 Write every hash into `docs/RUN.md` as they happen. The README links to that file once it exists. Do not invent hashes in the README before the run.
 
