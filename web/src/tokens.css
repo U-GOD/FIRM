@@ -1,0 +1,26 @@
+:root {
+  --ground: #10100e;
+  --ink: #f3f0e8;
+  --soft: #b7b3a8;
+  --faint: #7c786e;
+  --rule: #2c2c28;
+  --stamp: #f3f0e8;
+  --stamp-ink: #10100e;
+  --accent: #e0a24a;
+  --accent-ink: #1a140c;
+  --font-serif: Newsreader, Georgia, "Iowan Old Style", serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --page: 1040px;
+  --line: 1px solid var(--rule);
+  --radius: 0;
+  --nav: 10;
+}
