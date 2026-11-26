@@ -41,3 +41,23 @@ The first window's shared fee budget covered two of those calls and then had 0 u
 Cancel started at height 10698053. The offer's `cancelReadyAt` is block 10698093. The fill is in block 10698057, which is before that.
 
 At that block the curve price is `19918889` fUSD base units per `10^18` fETH base units. Payment is `10^17 * 19918889 / 10^18 = 1991888`. The filler's fETH balance rose from 0 to `100000000000000000`. The maker's fUSD balance rose from 0 to `1991888`.
+
+## Offer B
+
+Recorded on 26 November 2026. Offer 2 on the same book. It locks 0.01 fETH (`10^16` base units), one tenth of offer A. The line, the delay, and the fee are the same. This offer is not filled. The cancel is allowed to mature, a fill reverts, and `finalizeCancel` returns the input to idle.
+
+| Step | Hash |
+| --- | --- |
+| Convert 0.01 fETH | `46A2328D8D0B1219FAA65FF1D43F8FF75B319E1254A8CF281E737BEA18EC74AF` |
+| Approve the book | `762A453EEAAE90360B5045B0B3C1E7A8823A62FC4BCAE24A5BCFC5B00FC7A3B9` |
+| Deposit | `AD0C45231B95F092F53410EA80A079C115CE730768E7892BC816468DCB8DD767` |
+| Approve the book for zero | `2A96AF57E0CA58B59D779646BA8CA22075924FF53DBA9BD469D9712216086068` |
+| Open offer 2 | `DBCF1AF6213DBD36A945016A650BA06593C8C7FCD4CD8E0699964757D649C4EA` |
+| ML-DSA `startCancel` | `D44FB612073ADC3626549BADF08BC884A8FFD6657E1F70065E8CC95DB613F523` |
+| Filler window | `64C344A9127777CFA052A693FDB742A5121DC1DBB05C32B599273A36F2BFD200` |
+| Matured `fill` | `0xa60a941f9991e91f5bae66dcdfaa1bb136bd97db0e188329933637a8e34324fb` |
+| Close the filler window | `FBAC2694156A18427748A035D152D9F464179925351E8F2CB1337B35A614B045` |
+| `finalizeCancel` | `B935C304B232A2A7D8C0BDC069A8E9FCDD294E9C11473C5BEB55F86B8D7DD5C2` |
+
+Cancel started at height 10758125. `cancelReadyAt` is block 10758165. The fill receipt is status `0x0` in block 10758171. After finalize, offer 2 is cancelled, fETH reserved is 0, and the maker's idle fETH is `10000000000000001` (the 0.01 fETH plus the 1 base unit left from offer A). The filler window read was `found: false` and `live: false`.
+
