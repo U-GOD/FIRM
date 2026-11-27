@@ -1,6 +1,7 @@
 import { readOne, type LiveOffer } from "./chain.js";
 import { curveInput } from "./book.js";
 import { curve } from "./curve.js";
+import { fillDesk } from "./desk.js";
 import { agrees, priceLabel, statusClass, statusName, when, wholeUnits } from "./format.js";
 import { EXPLORER, recordedFor, runHash } from "./runs.js";
 import { copyButton } from "./copy.js";
@@ -10,18 +11,31 @@ export async function sheetView(id: bigint): Promise<HTMLElement> {
   const page = document.createElement("article");
   page.className = "view";
   if (!read.offer) {
+    page.append(backLink());
+    const panel = document.createElement("section");
+    panel.className = "empty";
     const title = document.createElement("h1");
     title.textContent = `Offer ${id}`;
     const empty = document.createElement("p");
-    empty.textContent = `Offer ${id} is not on this book.`;
+    empty.textContent = `Offer ${id} is not on this book. The next id is ${read.nextId}, so offers run through ${read.nextId > 1n ? read.nextId - 1n : 0n}.`;
     const back = document.createElement("a");
+    back.className = "button";
     back.href = "#/book";
     back.textContent = "Back to the book";
-    page.append(title, empty, back);
+    panel.append(title, empty, back);
+    page.append(panel);
     return page;
   }
-  page.append(render(read.offer));
+  page.append(backLink(), fillDesk(read.offer), render(read.offer));
   return page;
+}
+
+function backLink(): HTMLAnchorElement {
+  const link = document.createElement("a");
+  link.className = "back";
+  link.href = "#/book";
+  link.textContent = "Book";
+  return link;
 }
 
 function render(offer: LiveOffer): DocumentFragment {
@@ -47,10 +61,11 @@ function render(offer: LiveOffer): DocumentFragment {
   layout.append(curveWrap, fields);
 
   const back = document.createElement("p");
-  const backLink = document.createElement("a");
-  backLink.href = "#/book";
-  backLink.textContent = "Back to the book";
-  back.append(backLink);
+  const backLinkNode = document.createElement("a");
+  backLinkNode.className = "back";
+  backLinkNode.href = "#/book";
+  backLinkNode.textContent = "Book";
+  back.append(backLinkNode);
   const recorded = recordedBlock(offer);
   fragment.append(header, intro, layout, recorded, back);
   void curveInput(offer)
