@@ -124,7 +124,7 @@ We will ship:
 - A linear curve, a cancel delay, and a fee field that the demo sets to zero.
 - An attacker script that uses the maker's secp256k1 key and shows the reverts.
 - A filler script on a second key we control. That key is operator inventory. It is not a user.
-- A read-only page that shows the curve, the status, and the transaction hashes.
+- A page with a landing and an app. A Diana wallet can deposit and fill. Opening, cancelling, and withdrawing stay with the post-quantum signature.
 - Two QCAI audit reports and a short map of what we did with each finding.
 - `AI_USAGE.md`, written while the work happens.
 
@@ -186,7 +186,7 @@ The honest first outsider is someone who runs the filler script against an offer
 | Diana deployment | `0x9faf23f3014c0922ca7d70da87b6783a3d2b5619`. `tokenA` is fETH, `tokenB` is fUSD. The deployer window is closed |
 | Offer A | Filled during the cancel delay. Hashes are in [docs/RUN.md](docs/RUN.md) |
 | Offer B | Cancel matured, fill reverted, input returned to idle. Hashes are in [docs/RUN.md](docs/RUN.md) |
-| Page | Read-only. `npm run page` serves `web/`. It reads the book and links the hashes in [docs/RUN.md](docs/RUN.md). The explorer opens on mainnet until its header is set to Testnet |
+| Page | `npm run page` serves `web/`. The landing is separate from the app. A wallet on Diana can deposit and fill. Open, cancel, and withdraw stay in the scripts. Hashes link to [docs/RUN.md](docs/RUN.md). The explorer opens on mainnet until its header is set to Testnet |
 | Outside filler | Not recruited |
 | Video | Not recorded |
 
