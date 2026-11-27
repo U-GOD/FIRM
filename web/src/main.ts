@@ -3,11 +3,15 @@ import { landingView } from "./landing.js";
 import { play, scrollTop, startScroll } from "./motion.js";
 import { recordView } from "./record.js";
 import { sheetView } from "./sheet.js";
+import { mountWallet } from "./wallet.js";
 
 type Route = { name: "landing" } | { name: "book" } | { name: "record" } | { name: "sheet"; id: bigint };
 
 const outlet = document.querySelector("#outlet");
 const notice = document.querySelector("#notice");
+const connect = document.querySelector("#connect");
+const walletNote = document.querySelector("#wallet-note");
+if (connect instanceof HTMLButtonElement && walletNote instanceof HTMLElement) mountWallet(connect, walletNote);
 
 function route(): Route {
   const hash = location.hash.replace(/^#/, "");
@@ -29,10 +33,31 @@ function markNav(here: Route): void {
 }
 
 let booted = false;
+let rendering = false;
+let queued = false;
 
 async function render(): Promise<void> {
+  if (rendering) {
+    queued = true;
+    return;
+  }
+  rendering = true;
+  try {
+    await paint();
+  } finally {
+    rendering = false;
+    if (queued) {
+      queued = false;
+      void render();
+    }
+  }
+}
+
+async function paint(): Promise<void> {
   if (!outlet || !notice) return;
   const here = route();
+  document.body.classList.toggle("is-landing", here.name === "landing");
+  document.body.classList.toggle("is-app", here.name !== "landing");
   markNav(here);
   scrollTop();
   outlet.replaceChildren();
@@ -49,6 +74,7 @@ async function render(): Promise<void> {
     notice.textContent = "";
     outlet.replaceChildren(view);
     document.title = titleFor(here, view);
+    scrollTop();
     await play(view, here.name === "landing" ? "landing" : "page");
     const heading = view.querySelector("h1");
     if (booted && heading instanceof HTMLElement) {
@@ -56,10 +82,36 @@ async function render(): Promise<void> {
       heading.focus();
     }
   } catch (error) {
-    outlet.replaceChildren();
-    notice.textContent = error instanceof Error ? error.message : "The book could not be read.";
+    notice.textContent = "";
+    outlet.replaceChildren(failure(here, error));
+    document.title = "FIRM";
   }
   booted = true;
+}
+
+function failure(here: Route, error: unknown): HTMLElement {
+  const panel = document.createElement("section");
+  panel.className = "empty";
+  if (here.name !== "landing" && here.name !== "book") {
+    const back = document.createElement("a");
+    back.className = "back";
+    back.href = "#/book";
+    back.textContent = "Book";
+    panel.append(back);
+  }
+  const title = document.createElement("h1");
+  title.textContent = "The book did not answer.";
+  const text = document.createElement("p");
+  text.textContent = error instanceof Error ? error.message : "The read failed.";
+  const retry = document.createElement("button");
+  retry.type = "button";
+  retry.className = "button";
+  retry.textContent = "Try again";
+  retry.addEventListener("click", () => {
+    void render();
+  });
+  panel.append(title, text, retry);
+  return panel;
 }
 
 function titleFor(here: Route, view: HTMLElement): string {
@@ -69,10 +121,14 @@ function titleFor(here: Route, view: HTMLElement): string {
     const heading = view.querySelector("h1")?.textContent;
     return heading ? `${heading} — FIRM` : "FIRM";
   }
-  return "FIRM — read-only book";
+  return "Book — FIRM";
 }
 
 window.addEventListener("hashchange", () => {
+  void render();
+});
+
+window.addEventListener("firm-refresh", () => {
   void render();
 });
 
