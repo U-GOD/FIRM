@@ -4,12 +4,19 @@ import { EXPLORER, RUNS } from "./runs.js";
 export function recordView(): HTMLElement {
   const page = document.createElement("article");
   page.className = "view";
+  const back = document.createElement("a");
+  back.className = "back";
+  back.href = "#/book";
+  back.textContent = "Book";
   const title = document.createElement("h1");
   title.textContent = "Record";
+  const lede = document.createElement("p");
+  lede.className = "lede";
+  lede.textContent = "Every hash below is from the Diana runs. Open one, or copy it. Nothing on this page is a sample.";
   const note = document.createElement("p");
   note.className = "note";
   note.textContent = "Links open explore.qore.network. That site starts on mainnet. Set its header to Testnet before reading a Diana hash.";
-  page.append(title, note);
+  page.append(back, title, lede, note);
   for (const run of RUNS) {
     const heading = document.createElement("h2");
     heading.textContent = run.title;
