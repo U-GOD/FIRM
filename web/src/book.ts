@@ -1,3 +1,4 @@
+import { accountDock } from "./desk.js";
 import { blockTime, readBook, type LiveOffer } from "./chain.js";
 import { curve } from "./curve.js";
 import { copyButton } from "./copy.js";
@@ -9,11 +10,11 @@ export async function bookView(): Promise<HTMLElement> {
   const page = document.createElement("article");
   page.className = "view";
   const title = document.createElement("h1");
-  title.textContent = "A Dutch offer the classical key cannot pull.";
+  title.textContent = "The book";
   const lede = document.createElement("p");
   lede.className = "lede";
-  lede.textContent = "The maker signs a line. The contract prices the fill. A cancel waits out the delay the maker signed.";
-  page.append(title, lede, actions(read.offers));
+  lede.textContent = "Deposit either token, or fill an offer while its window is open. The contract prices the fill. A browser wallet cannot open, cancel, or withdraw, because those need the maker's post-quantum signature.";
+  page.append(title, lede, accountDock(), actions(read.offers));
 
   if (read.truncated) {
     const cap = document.createElement("p");
@@ -23,8 +24,13 @@ export async function bookView(): Promise<HTMLElement> {
   }
 
   if (read.offers.length === 0) {
-    const empty = document.createElement("p");
-    empty.textContent = "This book has no offers.";
+    const empty = document.createElement("section");
+    empty.className = "empty";
+    const heading = document.createElement("h2");
+    heading.textContent = "No offers yet";
+    const text = document.createElement("p");
+    text.textContent = "A deposit sits in idle until a post-quantum signature opens an offer. The wallet panel above can make that deposit.";
+    empty.append(heading, text);
     page.append(empty);
   } else {
     page.append(table(read.offers));
@@ -40,26 +46,26 @@ function actions(offers: LiveOffer[]): HTMLElement {
   const row = document.createElement("div");
   row.className = "actions";
   const open = offers.find((offer) => offer.status === 1);
-  const primary = document.createElement("a");
-  primary.className = "button";
   if (open) {
+    const primary = document.createElement("a");
+    primary.className = "button";
     primary.href = `#/offer/${open.id}`;
-    primary.textContent = `Read offer ${open.id}`;
-  } else if (offers.some((offer) => offer.id === 1n)) {
-    primary.href = "#/offer/1";
-    primary.textContent = "Read offer 1";
-  } else {
-    primary.href = "#book-table";
-    primary.textContent = "Read the book";
-    primary.addEventListener("click", (event) => {
-      event.preventDefault();
-      document.getElementById("book-table")?.scrollIntoView();
-    });
+    primary.textContent = `Fill offer ${open.id}`;
+    row.append(primary);
   }
+  const refresh = document.createElement("button");
+  refresh.type = "button";
+  refresh.className = "button ghost";
+  refresh.textContent = "Refresh";
+  refresh.addEventListener("click", () => {
+    refresh.disabled = true;
+    refresh.textContent = "Reading";
+    window.dispatchEvent(new Event("firm-refresh"));
+  });
   const record = document.createElement("a");
   record.href = "#/record";
   record.textContent = "Record";
-  row.append(primary, record);
+  row.append(refresh, record);
   return row;
 }
 
@@ -168,7 +174,7 @@ function principles(): HTMLDListElement {
     ["Full fill", "The contest book takes the whole input or none of it."],
     ["Signed recipient", "The filler does not choose where the output goes."],
     ["Classical key", "It can pay gas. The book does not treat it as the maker."],
-    ["This page", "It reads the book. Opens, cancels, and withdraws stay in the scripts."],
+    ["This wallet", "It can deposit and fill. Opening, cancelling, and withdrawing stay with the post-quantum key."],
   ];
   for (const [term, detail] of items) {
     const group = document.createElement("div");
