@@ -2,7 +2,7 @@ import { curveInput } from "./book.js";
 import { readBook, type LiveOffer } from "./chain.js";
 import { copyButton } from "./copy.js";
 import { curve } from "./curve.js";
-import { priceLabel, statusClass, statusName, wholeUnits } from "./format.js";
+import { priceLabel, statusName, wholeUnits } from "./format.js";
 import { BOOK, RUN_LOG, SPEC } from "./runs.js";
 
 export async function landingView(): Promise<HTMLElement> {
@@ -10,7 +10,7 @@ export async function landingView(): Promise<HTMLElement> {
   page.className = "landing";
   const read = await readBook();
   const focus = read.offers.find((offer) => offer.id === 1n) ?? read.offers.find((offer) => offer.status === 1) ?? read.offers[0];
-  page.append(await hero(focus), beats(), liveBook(read.offers, read.truncated, read.nextId), close());
+  page.append(await hero(focus), beats(), facts(read.offers.length, read.nextId), close());
   return page;
 }
 
@@ -29,14 +29,11 @@ async function hero(offer: LiveOffer | undefined): Promise<HTMLElement> {
   lede.textContent = "The maker signs a line. The contract prices the fill. A cancel waits out the delay the maker signed.";
   const actions = document.createElement("div");
   actions.className = "hero-actions";
-  const book = document.createElement("a");
-  book.className = "button";
-  book.href = "#/book";
-  book.textContent = "Open the book";
-  const record = document.createElement("a");
-  record.href = "#/record";
-  record.textContent = "Record";
-  actions.append(book, record);
+  const enter = document.createElement("a");
+  enter.className = "button";
+  enter.href = "#/book";
+  enter.textContent = "Enter the app";
+  actions.append(enter);
   copy.append(eyebrow, title, lede, actions);
 
   const figure = document.createElement("figure");
@@ -87,74 +84,33 @@ function beats(): HTMLElement {
   return section;
 }
 
-function liveBook(offers: LiveOffer[], truncated: boolean, nextId: bigint): HTMLElement {
+function facts(count: number, nextId: bigint): HTMLElement {
   const section = document.createElement("section");
-  section.className = "landing-book";
+  section.className = "facts";
   const heading = document.createElement("h2");
-  heading.textContent = "On this book";
-  const lede = document.createElement("p");
-  lede.className = "lede";
-  lede.textContent = "These rows are the offers the contract returned. The page only reads them.";
-  section.append(heading, lede);
-  if (truncated) {
-    const cap = document.createElement("p");
-    cap.className = "note";
-    cap.textContent = `Showing the first 32 offers. Next id is ${nextId}.`;
-    section.append(cap);
+  heading.textContent = "Already on Diana";
+  const grid = document.createElement("div");
+  grid.className = "fact-grid";
+  const items: [string, string, string][] = [
+    ["Offers", String(count), "Returned by the book just now."],
+    ["Next id", nextId.toString(), "The id the next open would take."],
+    ["Your wallet", "Deposit and fill", "Enter the app to connect. The post-quantum key still opens and cancels."],
+  ];
+  for (const [kicker, value, detail] of items) {
+    const card = document.createElement("article");
+    const label = document.createElement("p");
+    label.className = "eyebrow";
+    label.textContent = kicker;
+    const strong = document.createElement("p");
+    strong.className = "fact";
+    strong.textContent = value;
+    const text = document.createElement("p");
+    text.textContent = detail;
+    card.append(label, strong, text);
+    grid.append(card);
   }
-  if (offers.length === 0) {
-    const empty = document.createElement("p");
-    empty.textContent = "This book has no offers.";
-    section.append(empty);
-    return section;
-  }
-  const table = document.createElement("table");
-  const head = document.createElement("thead");
-  const headRow = document.createElement("tr");
-  for (const label of ["Offer", "Input", "Line", "Status", "cancelReadyAt"]) {
-    const cell = document.createElement("th");
-    cell.scope = "col";
-    cell.textContent = label;
-    headRow.append(cell);
-  }
-  head.append(headRow);
-  const body = document.createElement("tbody");
-  for (const offer of offers) {
-    const row = document.createElement("tr");
-    row.addEventListener("click", (event) => {
-      if (event.target instanceof Element && event.target.closest("a")) return;
-      location.hash = `#/offer/${offer.id}`;
-    });
-    const id = document.createElement("th");
-    id.scope = "row";
-    id.dataset.label = "Offer";
-    const link = document.createElement("a");
-    link.href = `#/offer/${offer.id}`;
-    link.textContent = offer.id.toString();
-    id.append(link);
-    const input = dataCell("Input", wholeUnits(offer.amountIn, offer.tokenIn));
-    const line = dataCell("Line", `${priceLabel(offer.startPrice, offer.tokenOut)} → ${priceLabel(offer.endPrice, offer.tokenOut)}`);
-    const status = document.createElement("td");
-    status.dataset.label = "Status";
-    const word = document.createElement("span");
-    word.className = `status ${statusClass(offer.status)}`.trim();
-    word.textContent = statusName(offer.status);
-    status.append(word);
-    const ready = dataCell("cancelReadyAt", offer.cancelReadyAt.toString());
-    ready.classList.add("mono");
-    row.append(id, input, line, status, ready);
-    body.append(row);
-  }
-  table.append(head, body);
-  section.append(table);
+  section.append(heading, grid);
   return section;
-}
-
-function dataCell(label: string, value: string): HTMLTableCellElement {
-  const cell = document.createElement("td");
-  cell.dataset.label = label;
-  cell.textContent = value;
-  return cell;
 }
 
 function close(): HTMLElement {
