@@ -394,7 +394,7 @@ If the node rejects `MsgCrossVMCall`, stop and write the error into `docs/SPIKE.
 - Close the window.
 - The race: between the window opening and those three transactions, the published secp256k1 key can spend the slots, including a plain `transfer` of the maker's wallet balance. The inventory is safe only after deposit has landed and the window is closed. Do not use this path in the video if the hybrid path works.
 
-QoreX in the browser has refused cross-VM calls for other fest projects, because it cannot display them. The maker action stays a script. The page is read-only.
+QoreX in the browser has refused cross-VM calls for other fest projects, because it cannot display them. The maker action stays a script. A browser wallet on the page can deposit and fill. It cannot open, cancel, or withdraw.
 
 The filler uses a normal EVM transaction inside a window scoped to `OfferBook` only, `max_txs` large enough for the approve and the fill, `max_value` covering gas. The filler's classical key is supposed to be live. That is the opposite of the maker.
 
@@ -471,7 +471,13 @@ Suggested terms once decimals are 18. Scale down if the faucet is tight. Do not 
 
 ## Web page
 
-`web/` is a static page. It reads the book with viem, draws the line from start price to end price, and shows status, `cancelReadyAt`, and links to the Diana explorer for the hashes in `docs/RUN.md`. No wallet connection. No key in the browser. Hosting can be a static host. The page is done when a fresh browser shows a filled offer without being logged in.
+`web/` is a Vite page. `#/` is the landing. Enter the app goes to `#/book`.
+
+The book, each offer, and the record read Diana with viem. A browser wallet can connect to chain 9800, deposit fETH or fUSD into its own idle balance, and fill an offer while the window is open and a cancel has not matured. The page sends `approve` when the allowance is short, then `deposit` or `fill`. It does not hold a key.
+
+Opening, cancelling, and withdrawing stay in the scripts. Those calls need an ML-DSA-87 signature, and a browser wallet cannot produce one. The page says so.
+
+The curve, the status, `cancelReadyAt`, and the hashes in `docs/RUN.md` stay on the page. Explorer links still open on mainnet until the explorer header is set to Testnet. Hosting can be a static host. A fresh browser can still read a filled offer without connecting.
 
 ## QCAI
 
@@ -507,7 +513,7 @@ Create this file on the first coding session, not before, so it does not describ
 
 **5. Offer B.** Wait out the delay. Show the matured cancel. Done when the input token is back in idle and a fill reverts.
 
-**6. Page.** Read-only. Done when it matches `docs/RUN.md` without a wallet.
+**6. Page.** Read-only. Done when it matches `docs/RUN.md` without a wallet. A later change added a Diana wallet for deposit and fill. Open, cancel, and withdraw stay in the scripts.
 
 **7. QCAI, both stages.** Done when the PDFs and `docs/AUDIT.md` are in the repo.
 
