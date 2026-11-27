@@ -1,12 +1,13 @@
-import { createPublicClient, http, type Address } from "viem";
+import { createPublicClient, defineChain, http, type Address } from "viem";
 import { BOOK } from "./runs.js";
 
-const diana = {
+export const diana = defineChain({
   id: 9800,
   name: "qorechain-diana",
-  nativeCurrency: { name: "QOR", symbol: "QOR", decimals: 6 },
+  // eth_getBalance counts 1e18 per QOR. Cosmos uqor counts 1e6.
+  nativeCurrency: { name: "QOR", symbol: "QOR", decimals: 18 },
   rpcUrls: { default: { http: ["https://evm-testnet.qore.host"] } },
-} as const;
+});
 
 const bookAbi = [
   {
@@ -80,12 +81,45 @@ export type BookRead = {
   truncated: boolean;
 };
 
-const client = createPublicClient({ chain: diana, transport: http(diana.rpcUrls.default.http[0]) });
+export const publicClient = createPublicClient({ chain: diana, transport: http(diana.rpcUrls.default.http[0]) });
+
+const erc20Abi = [
+  {
+    type: "function",
+    name: "balanceOf",
+    stateMutability: "view",
+    inputs: [{ name: "account", type: "address" }],
+    outputs: [{ type: "uint256" }],
+  },
+  {
+    type: "function",
+    name: "allowance",
+    stateMutability: "view",
+    inputs: [
+      { name: "owner", type: "address" },
+      { name: "spender", type: "address" },
+    ],
+    outputs: [{ type: "uint256" }],
+  },
+] as const;
+
+const idleAbi = [
+  {
+    type: "function",
+    name: "idle",
+    stateMutability: "view",
+    inputs: [
+      { name: "maker", type: "address" },
+      { name: "token", type: "address" },
+    ],
+    outputs: [{ type: "uint256" }],
+  },
+] as const;
 
 const readCap = 32n;
 
 async function readOffer(id: bigint): Promise<LiveOffer> {
-  const offer = await client.readContract({
+  const offer = await publicClient.readContract({
     address: BOOK,
     abi: bookAbi,
     functionName: "offers",
@@ -112,9 +146,9 @@ async function readOffer(id: bigint): Promise<LiveOffer> {
 
 async function readTokens(): Promise<{ tokenA: Address; tokenB: Address; nextId: bigint }> {
   const [tokenA, tokenB, nextId] = await Promise.all([
-    client.readContract({ address: BOOK, abi: bookAbi, functionName: "tokenA" }),
-    client.readContract({ address: BOOK, abi: bookAbi, functionName: "tokenB" }),
-    client.readContract({ address: BOOK, abi: bookAbi, functionName: "nextId" }),
+    publicClient.readContract({ address: BOOK, abi: bookAbi, functionName: "tokenA" }),
+    publicClient.readContract({ address: BOOK, abi: bookAbi, functionName: "tokenB" }),
+    publicClient.readContract({ address: BOOK, abi: bookAbi, functionName: "nextId" }),
   ]);
   return { tokenA, tokenB, nextId };
 }
@@ -143,6 +177,42 @@ export async function readOne(id: bigint): Promise<{ tokenA: Address; tokenB: Ad
 }
 
 export async function blockTime(blockNumber: bigint): Promise<bigint> {
-  const block = await client.getBlock({ blockNumber });
+  const block = await publicClient.getBlock({ blockNumber });
   return block.timestamp;
+}
+
+export async function head(): Promise<{ block: bigint; time: bigint }> {
+  const block = await publicClient.getBlock();
+  return { block: block.number, time: block.timestamp };
+}
+
+export type Holdings = {
+  tokenA: Address;
+  tokenB: Address;
+  native: bigint;
+  walletA: bigint;
+  walletB: bigint;
+  idleA: bigint;
+  idleB: bigint;
+};
+
+export async function holdings(owner: Address): Promise<Holdings> {
+  const { tokenA, tokenB } = await readTokens();
+  const [native, walletA, walletB, idleA, idleB] = await Promise.all([
+    publicClient.getBalance({ address: owner }),
+    publicClient.readContract({ address: tokenA, abi: erc20Abi, functionName: "balanceOf", args: [owner] }),
+    publicClient.readContract({ address: tokenB, abi: erc20Abi, functionName: "balanceOf", args: [owner] }),
+    publicClient.readContract({ address: BOOK, abi: idleAbi, functionName: "idle", args: [owner, tokenA] }),
+    publicClient.readContract({ address: BOOK, abi: idleAbi, functionName: "idle", args: [owner, tokenB] }),
+  ]);
+  return { tokenA, tokenB, native, walletA, walletB, idleA, idleB };
+}
+
+export async function allowanceOf(token: Address, owner: Address): Promise<bigint> {
+  return publicClient.readContract({
+    address: token,
+    abi: erc20Abi,
+    functionName: "allowance",
+    args: [owner, BOOK],
+  });
 }
