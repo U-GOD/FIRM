@@ -156,4 +156,18 @@ Rejected: a React kit, a gradient, and a wallet control.
 
 Check: `npx tsc -p web/tsconfig.json --noEmit`. A browser opened `http://localhost:5174/#/`. The headline, the brass line, and offer 1 were on the first screen. Open the book went to `#/book` and showed the same headline. At 390px the page width was 390.
 
+## 26 November 2026, app shell
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Separate the landing from the app, add back links, and connect a Diana wallet that can deposit and fill.
+
+Files: `web/index.html`, `web/src/main.ts`, `web/src/landing.ts`, `web/src/book.ts`, `web/src/sheet.ts`, `web/src/record.ts`, `web/src/chain.ts`, `web/src/wallet.ts`, `web/src/desk.ts`, `web/src/quote.ts`, `web/src/motion.ts`, `web/src/style.css`, `IMPLEMENTATION.md`, `README.md`, `AI_USAGE.md`.
+
+Kept: Enter the app leaves the landing. The header Connect button uses the injected wallet, adds chain 9800, and shows the account. Deposit and fill call the book. Open, cancel, and withdraw stay with the post-quantum key.
+
+Rejected: a button that signs an offer or a cancel with the browser key, and a wallet that only changes its label.
+
+Check: `npx tsc -p web/tsconfig.json --noEmit`. A browser opened `http://localhost:5174/#/`, then Enter the app, `#/offer/1`, `#/offer/9`, `#/record`, and back to the book. With no wallet, Connect said the browser had none. With an injected account the button showed the address, the balances were live, and Disconnect opened from that button. At 390px the page width was 390.
+
 
