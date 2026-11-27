@@ -78,21 +78,21 @@ function landingMotion(): void {
       ease: "power3.out",
     });
   }
-  const book = document.querySelector(".landing-book");
-  if (book) {
-    gsap.from(".landing-book tbody tr", {
-      scrollTrigger: { trigger: book, start: "top 75%" },
-      y: 20,
+  const facts = document.querySelector(".facts");
+  if (facts) {
+    gsap.from(".fact-grid article", {
+      scrollTrigger: { trigger: facts, start: "top 80%" },
+      y: 28,
       opacity: 0,
-      duration: 0.55,
-      stagger: 0.08,
+      duration: 0.6,
+      stagger: 0.1,
       ease: "power2.out",
     });
   }
 }
 
 function pageMotion(): void {
-  gsap.from("h1, .lede, .actions > *, tbody tr, .featured, .fields dt, .recorded, .blotter li", {
+  gsap.from("h1, .lede, .actions > *, .dock, .fill-desk, .empty, tbody tr, .featured, .fields dt, .recorded, .blotter li", {
     y: 22,
     opacity: 0,
     duration: 0.55,
