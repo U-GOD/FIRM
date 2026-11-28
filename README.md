@@ -187,6 +187,7 @@ The honest first outsider is someone who runs the filler script against an offer
 | Offer A | Filled during the cancel delay. Hashes are in [docs/RUN.md](docs/RUN.md) |
 | Offer B | Cancel matured, fill reverted, input returned to idle. Hashes are in [docs/RUN.md](docs/RUN.md) |
 | Page | `npm run page` serves `web/`. The landing is separate from the app. A wallet on Diana can deposit and fill. Open, cancel, and withdraw stay in the scripts. Hashes link to [docs/RUN.md](docs/RUN.md). The explorer opens on mainnet until its header is set to Testnet |
+| Audit | Both stages are in [docs/AUDIT.md](docs/AUDIT.md). Stage 1 scored 72. Stage 2 scored 78. Both are risk medium, and quantum readiness is not scored. The PDFs are [docs/audit/2026-11-27-stage-1.pdf](docs/audit/2026-11-27-stage-1.pdf) and [docs/audit/2026-11-28-stage-2.pdf](docs/audit/2026-11-28-stage-2.pdf) |
 | Outside filler | Not recruited |
 | Video | Not recorded |
 
