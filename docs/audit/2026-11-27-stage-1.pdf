@@ -1,0 +1,668 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 8045
+>>
+stream
+0.5670000000000001 w
+0 G
+BT
+/F1 22 Tf
+25.2999999999999972 TL
+0.063 0.725 0.506 rg
+39.6850393700787407 785.1970866141732586 Td
+(QoreChain AI) Tj
+ET
+BT
+/F1 16 Tf
+18.3999999999999986 TL
+0.157 g
+39.6850393700787407 756.8506299212598378 Td
+(Security Audit Report) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.392 g
+39.6850393700787407 728.5041732283464171 Td
+(Generated: 11/27/2026, 12:32:47 AM) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.392 g
+39.6850393700787407 714.3309448818897636 Td
+(Contract Name: OfferBook) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.392 g
+39.6850393700787407 700.15771653543311 Td
+(Blockchain: ethereum) Tj
+ET
+0.78 G
+39.6850393700787407 685.9844881889763428 m
+555.5905511811024553 685.9844881889763428 l
+S
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+39.6850393700787407 657.6380314960629221 Td
+(Audit Overview) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+39.6850393700787407 629.291574803149615 Td
+(Overall Security Score: 72/100) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+39.6850393700787407 615.1183464566928478 Td
+(Risk Level: MEDIUM) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+39.6850393700787407 600.9451181102361943 Td
+(Quantum Readiness: not scored for this setting) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0. g
+39.6850393700787407 586.7718897637794271 Td
+(Total Vulnerabilities: 5) Tj
+ET
+BT
+/F1 12 Tf
+13.7999999999999989 TL
+0. g
+39.6850393700787407 544.2522047244094665 Td
+(Executive Summary) Tj
+ET
+BT
+/F1 10 Tf
+11.5 TL
+0.235 g
+39.6850393700787407 515.9057480314959321 Td
+(The OfferBook contract implements a decentralized exchange mechanism with post-quantum cryptographic) Tj
+T* (verification. It includes features for opening offers, filling them, canceling, and withdrawing funds. Key vulnerabilities) Tj
+T* (include potential access control bypasses in the withdraw function and unchecked precompile return values. The) Tj
+T* (contract also has medium-level integer safety concerns related to fee calculations and some gas optimization) Tj
+T* (opportunities.) Tj
+ET
+0.78 G
+0.5670000000000001 w
+0.78 G
+0.5670000000000001 w
+0.06 0.73 0.51 rg
+0.78 G
+0. w
+0.06 0.73 0.51 rg
+40. 416.69314960629913 103.5919494656220223 -21.4999999999999964 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+1. g
+45. 403.1931496062991869 Td
+(Vulnerability) Tj
+ET
+0.06 0.73 0.51 rg
+0.78 G
+0. w
+0.06 0.73 0.51 rg
+143.5919494656220081 416.69314960629913 48.6000000000000014 -21.4999999999999964 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+1. g
+148.5919494656220081 403.1931496062991869 Td
+(Severity) Tj
+ET
+0.06 0.73 0.51 rg
+0.78 G
+0. w
+0.06 0.73 0.51 rg
+192.1919494656220309 416.69314960629913 81.6400000000000006 -21.4999999999999964 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+1. g
+197.1919494656220309 403.1931496062991869 Td
+(Location) Tj
+ET
+0.06 0.73 0.51 rg
+0.78 G
+0. w
+0.06 0.73 0.51 rg
+273.8319494656220741 416.69314960629913 281.4480505344218386 -21.4999999999999964 re
+f
+BT
+/F2 10 Tf
+11.5 TL
+1. g
+278.8319494656220741 403.1931496062991869 Td
+(Recommendation) Tj
+ET
+0.78 G
+0.5670000000000001 w
+0.96 g
+0.78 G
+0. w
+0.96 g
+40. 395.1931496062991869 103.5919494656220223 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+45. 382.5431496062992096 Td
+(Missing Access Control) Tj
+T* (on Critical Functions) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+143.5919494656220081 395.1931496062991869 48.6000000000000014 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+148.5919494656220081 382.5431496062992096 Td
+(HIGH) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+192.1919494656220309 395.1931496062991869 81.6400000000000006 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+197.1919494656220309 382.5431496062992096 Td
+(OfferBook.sol:230) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+273.8319494656220741 395.1931496062991869 281.4480505344218386 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+278.8319494656220741 382.5431496062992096 Td
+(Add access control checks to ensure that only the maker or) Tj
+T* (authorized parties can initiate withdrawals.) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+40. 364.4931496062991414 103.5919494656220223 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+45. 351.843149606299221 Td
+(Potential Overflow in) Tj
+T* (Fee Calculation) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+143.5919494656220081 364.4931496062991414 48.6000000000000014 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+148.5919494656220081 351.843149606299221 Td
+(MEDIUM) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+192.1919494656220309 364.4931496062991414 81.6400000000000006 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+197.1919494656220309 351.843149606299221 Td
+(OfferBook.sol:168) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+273.8319494656220741 364.4931496062991414 281.4480505344218386 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+278.8319494656220741 351.843149606299221 Td
+(Use checked arithmetic or ensure that fee values are within safe) Tj
+T* (ranges to prevent overflow during multiplication.) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+40. 333.7931496062991528 103.5919494656220223 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+45. 321.1431496062991755 Td
+(Unchecked Precompile) Tj
+T* (Return Values) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+143.5919494656220081 333.7931496062991528 48.6000000000000014 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+148.5919494656220081 321.1431496062991755 Td
+(MEDIUM) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+192.1919494656220309 333.7931496062991528 81.6400000000000006 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+197.1919494656220309 321.1431496062991755 Td
+(OfferBook.sol:210) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+273.8319494656220741 333.7931496062991528 281.4480505344218386 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+278.8319494656220741 321.1431496062991755 Td
+(Implement more robust validation of precompile return data including) Tj
+T* (checking specific field types and ensuring proper decoding.) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+40. 303.0931496062991641 103.5919494656220223 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+45. 290.44314960629913 Td
+(Unbounded Loop Risk) Tj
+T* (in Mapping Operations) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+143.5919494656220081 303.0931496062991641 48.6000000000000014 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+148.5919494656220081 290.44314960629913 Td
+(LOW) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+192.1919494656220309 303.0931496062991641 81.6400000000000006 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+197.1919494656220309 290.44314960629913 Td
+(OfferBook.sol) Tj
+ET
+1. g
+0.78 G
+0. w
+1. g
+273.8319494656220741 303.0931496062991641 281.4480505344218386 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+278.8319494656220741 290.44314960629913 Td
+(Consider implementing limits or periodic cleanup mechanisms for) Tj
+T* (mappings to prevent excessive storage usage.) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+40. 272.3931496062991187 103.5919494656220223 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+45. 259.7431496062991982 Td
+(Nonce Management) Tj
+T* (Could Be Improved) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+143.5919494656220081 272.3931496062991187 48.6000000000000014 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+148.5919494656220081 259.7431496062991982 Td
+(INFO) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+192.1919494656220309 272.3931496062991187 81.6400000000000006 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+197.1919494656220309 259.7431496062991982 Td
+(OfferBook.sol) Tj
+ET
+0.96 g
+0.78 G
+0. w
+0.96 g
+273.8319494656220741 272.3931496062991187 281.4480505344218386 -30.6999999999999993 re
+f
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.314 g
+278.8319494656220741 259.7431496062991982 Td
+(Consider adding additional checks to ensure nonces are strictly) Tj
+T* (increasing and properly tracked across different actions.) Tj
+ET
+0.78 G
+0.5670000000000001 w
+0.78 G
+0. w
+0.78 G
+0.5670000000000001 w
+0.78 G
+0.5670000000000001 w
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.588 g
+227.5977952755905562 19.8427559055116944 Td
+(Page 1 of 1 - Powered by QoreChain AI) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R ]
+/Count 1
+>>
+endobj
+5 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+6 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+7 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+11 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+12 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+15 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+16 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 5 0 R
+/F2 6 0 R
+/F3 7 0 R
+/F4 8 0 R
+/F5 9 0 R
+/F6 10 0 R
+/F7 11 0 R
+/F8 12 0 R
+/F9 13 0 R
+/F10 14 0 R
+/F11 15 0 R
+/F12 16 0 R
+/F13 17 0 R
+/F14 18 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+19 0 obj
+<<
+/Producer (jsPDF 4.0.0)
+/CreationDate (D:20261127003247-00'00')
+>>
+endobj
+20 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 21
+0000000000 65535 f 
+0000008249 00000 n 
+0000010066 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000008306 00000 n 
+0000008431 00000 n 
+0000008561 00000 n 
+0000008694 00000 n 
+0000008831 00000 n 
+0000008954 00000 n 
+0000009083 00000 n 
+0000009215 00000 n 
+0000009351 00000 n 
+0000009479 00000 n 
+0000009606 00000 n 
+0000009735 00000 n 
+0000009868 00000 n 
+0000009970 00000 n 
+0000010314 00000 n 
+0000010400 00000 n 
+trailer
+<<
+/Size 21
+/Root 20 0 R
+/Info 19 0 R
+/ID [ <F75DD6E7558D1D8523B6B0AD9A3A728A> <F75DD6E7558D1D8523B6B0AD9A3A728A> ]
+>>
+startxref
+10504
+%%EOF
