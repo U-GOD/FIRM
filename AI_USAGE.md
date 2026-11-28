@@ -170,4 +170,34 @@ Rejected: a button that signs an offer or a cancel with the browser key, and a w
 
 Check: `npx tsc -p web/tsconfig.json --noEmit`. A browser opened `http://localhost:5174/#/`, then Enter the app, `#/offer/1`, `#/offer/9`, `#/record`, and back to the book. With no wallet, Connect said the browser had none. With an injected account the button showed the address, the balances were live, and Disconnect opened from that button. At 390px the page width was 390.
 
+## 27 November 2026, QCAI stage 1
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Run the QoreChain auditor on OfferBook and write down each finding.
+
+Files: `docs/AUDIT.md`, `docs/audit/2026-11-27-stage-1.pdf`, `README.md`, `AI_USAGE.md`.
+
+Kept: the dashboard PDF. Score 72, risk medium, quantum readiness not scored. Each of the five findings is a false positive. The contract was left as it is.
+
+Rejected: the CosmWasm setting, a mainnet charge, and a contract edit meant to raise the score.
+
+Check: `docs/audit/2026-11-27-stage-1.pdf` is 11,082 bytes and starts with `%PDF`. The tests named in `docs/AUDIT.md` are in `test/OfferBook.t.sol`.
+
+The same-day retry did not produce a second report. The auditor returned `NO_WALLET`, then, after a dashboard testnet wallet and a 100 QOR faucet claim, `INSUFFICIENT_QOR` at 150 QOR. The recovery phrase was not opened.
+
+## 28 November 2026, QCAI stage 2
+
+Tool: Cursor agent, Grok 4.7.
+
+Task: Claim the Diana faucet again and run the second audit on the same source.
+
+Files: `docs/AUDIT.md`, `docs/audit/2026-11-28-stage-2.pdf`, `README.md`, `AI_USAGE.md`.
+
+Kept: the dashboard PDF. Score 78, risk medium, quantum readiness not scored. Each of the five findings is a false positive. The contract was left as it is.
+
+Rejected: a contract edit meant to raise the score, and a mainnet charge.
+
+Check: `docs/audit/2026-11-28-stage-2.pdf` is 10,987 bytes and starts with `%PDF`. The faucet balance on the FIRM audit wallet read 199.055 QOR after the second claim.
+
 
